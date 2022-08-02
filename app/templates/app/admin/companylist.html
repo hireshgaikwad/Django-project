@@ -1,0 +1,101 @@
+{% extends "app/admin/Base1.html" %}
+{% block content %}
+{% load static %}
+
+
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Company List</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="{% url 'adminindex' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Company list</li>
+                        </ol>
+                        <div class="card mb-4">
+                           
+                        </div>
+                        <div class="card mb-4">
+                           
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Role </th>
+                                            <th>is_verified</th>
+                                            <th>Created_at</th>
+                                            <th>Updated_at</th>
+                                            <th>Delete</th>
+                                            <th>Mark as verified</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Role </th>
+                                            <th>is_verified</th>
+                                            <th>Created_at</th>
+                                            <th>Updated_at</th>
+                                            <th>Delete</th>
+                                            <th>Mark as verified</th>
+                                        </tr>
+                                    </tfoot>
+                                    {% if all_company %}
+                                    <tbody>
+                                        {% for i in all_company %}
+                                        <tr>
+                                            
+                                            <td>{{i.email}}</td>
+                                            <td>{{i.role}}</td>
+                                            <td>{{i.is_verified}}</td>
+                                            <td>{{i.is_created}}</td>
+                                            <td>{{i.is_updated}}</td>
+
+                                            <td>
+                                                <form action="{% url 'deletecompany' pk=i.id %}" method="post" >
+                                                    {% csrf_token %}
+                                                    <input type="submit" value="Delete"  name="" id="">
+                                                </form>
+                                            </td>
+
+                                            <td>
+                                                <form action="{% url 'verifycompanypage' pk=i.id %}" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="submit" value="Update"  name="" id="">
+                                                </form>
+                                            </td>
+                                           
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                       
+                                    </tbody>
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted"> Job portal by Hiresh</div>
+                            <div class="mt-4 mb-0">
+                                <div class="d-grid"><a class="btn btn-primary btn-block" href="{% url 'adminindex' %}">Back To Home</a></div>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static '/company/js/scripts.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="{% static '/company/js/datatables-simple-demo.js' %}"></script>
+    </body>
+</html>
+{% endblock %}
